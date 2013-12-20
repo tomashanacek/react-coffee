@@ -13,8 +13,10 @@ class Component
     @wrappedComponentClass ?= React.createClass
       displayName: @name
       render: -> @wrapper.render()
+      getInitialState: -> @wrapper.getInitialState?()
 
   @delegatesProperties 'props', 'state', toProperty: 'wrappedComponent'
+  @delegatesMethods 'setState', toProperty: 'wrappedComponent'
 
   constructor: (props) ->
     @wrappedComponent = @constructor.getWrappedComponentClass()(props)
