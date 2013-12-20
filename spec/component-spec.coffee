@@ -5,9 +5,8 @@ describe "Component", ->
     class Welcome extends Component
       render: ->
         @div ->
-          @text "Hello"
+          @span "Hello"
           @span @props.name
 
-    component = new Welcome(name: "Bob")
-    element = component.buildElement()
-    console.log element.outerHTML
+    component = new Welcome(name: "World")
+    expect(component.element.textContent).toBe "HelloWorld"

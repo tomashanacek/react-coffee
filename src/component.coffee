@@ -1,10 +1,12 @@
 React = require 'react'
 Delegator = require 'delegato'
+PropertyAccessors = require 'property-accessors'
 DOMBuilder = require './dom-builder'
 
 module.exports =
 class Component
   Delegator.includeInto(this)
+  PropertyAccessors.includeInto(this)
   DOMBuilder.includeInto(this)
 
   @getWrappedComponentClass: ->
@@ -21,7 +23,7 @@ class Component
   render: ->
     throw new Error("You must implement ::render on component #{@constructor.displayName ? @constructor.name}")
 
-  buildElement: ->
+  @::lazyAccessor 'element', ->
     container = document.createElement('div')
     React.renderComponent(@wrappedComponent, container)
     container.firstChild
