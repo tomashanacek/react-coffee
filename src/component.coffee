@@ -2,6 +2,7 @@ React = require 'react'
 Delegator = require 'delegato'
 PropertyAccessors = require 'property-accessors'
 DOMBuilder = require './dom-builder'
+ExampleReactComponent = React.createClass(render: ->).componentConstructor.prototype
 
 module.exports =
 class Component
@@ -9,14 +10,16 @@ class Component
   PropertyAccessors.includeInto(this)
   DOMBuilder.includeInto(this)
 
+  for key, value of ExampleReactComponent when key isnt 'constructor' and typeof value is 'function'
+    @delegatesMethod key, toProperty: 'wrappedComponent'
+
+  @delegatesProperties 'props', 'state', toProperty: 'wrappedComponent'
+
   @getWrappedComponentClass: ->
     @wrappedComponentClass ?= React.createClass
       displayName: @name
       render: -> @wrapper.render()
       getInitialState: -> @wrapper.getInitialState?()
-
-  @delegatesProperties 'props', 'state', toProperty: 'wrappedComponent'
-  @delegatesMethods 'setState', toProperty: 'wrappedComponent'
 
   constructor: (props) ->
     @wrappedComponent = @constructor.getWrappedComponentClass()(props)

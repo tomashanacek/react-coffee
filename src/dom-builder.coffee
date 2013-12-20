@@ -15,11 +15,11 @@ TagNames = """
 module.exports =
 class DOMBuilder extends Mixin
   for tagName in TagNames
-    do (tagName) => @::[tagName] = (args...) -> @tag(tagName, args...)
+    do (tagName) => @::[tagName] = (args...) -> @component(tagName, args...)
 
   childrenStack: null
 
-  tag: (tagName, args...) ->
+  component: (component, args...) ->
     for arg in args
       switch typeof arg
         when 'function' then content = arg
@@ -32,8 +32,13 @@ class DOMBuilder extends Mixin
       children = @popChildren()
     else if text?
       children = [text]
+    else
+      children = []
 
-    @appendChild(DOM[tagName](attributes, children...))
+    if typeof component is 'string'
+      @appendChild(DOM[component](attributes, children...))
+    else
+      @appendChild(new component(attributes, children...))
 
   text: (text) ->
     @appendChild text

@@ -26,3 +26,17 @@ describe "Component", ->
     expect(component.element.textContent).toBe "Goodnight World"
     component.setState(name: "Moon")
     expect(component.element.textContent).toBe "Goodnight Moon"
+
+  it "allows owner-ownee relationships between components", ->
+    class Owner extends Component
+      render: ->
+        @div ->
+          @div "Owner #{@props.name} "
+          @component Ownee, name: "B"
+
+    class Ownee extends Component
+      render: ->
+        @div "Ownee #{@props.name}"
+
+    component = new Owner(name: "A")
+    expect(component.element.textContent).toBe "Owner A Ownee B"
