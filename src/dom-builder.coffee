@@ -35,10 +35,25 @@ class DOMBuilder extends Mixin
     else
       children = []
 
-    if typeof component is 'string'
-      @appendChild(DOM[component](attributes, children...))
-    else
-      @appendChild(new component(attributes, children...))
+    switch typeof component
+      when 'string'
+        @appendChild(DOM[component](attributes, children...))
+      when 'function'
+        @appendChild(new component(attributes, children...))
+      else
+        if args.length > 0
+          throw new Error("If you want to pass arguments to ::component, the first argument must be a string or a function")
+        @appendChild(component)
+
+  components: (components...) ->
+    for component in components
+      switch typeof component
+        when 'array'
+          @components(component)
+        when 'object'
+          @appendChild(component)
+        else
+          throw new Error("The arguments to ::components must be objects or arrays of objects")
 
   text: (text) ->
     @appendChild text

@@ -61,3 +61,32 @@ describe "Component", ->
         <div>Ownee B</div>
       </div>
     """
+
+  it "allows components to be declared with children", ->
+    class Owner extends Component
+      render: ->
+        @div ->
+          @component Parent, ->
+            @component Child, name: 'A'
+            @component Child, name: 'B'
+
+    class Parent extends Component
+      render: ->
+        @div ->
+          @span "I'm the parent. These are my children:"
+          @components @props.children
+
+    class Child extends Component
+      render: ->
+        @div "Child #{@props.name}"
+
+    component = new Owner
+    expect(component.element).toMatchMarkup """
+      <div>
+        <div>
+          <span>I'm the parent. These are my children:</span>
+          <div>Child A</div>
+          <div>Child B</div>
+        </div>
+      </div>
+    """

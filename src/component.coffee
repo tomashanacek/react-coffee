@@ -21,8 +21,8 @@ class Component
       render: -> @wrapper.render()
       getInitialState: -> @wrapper.getInitialState?()
 
-  constructor: (props) ->
-    @wrappedComponent = @constructor.getWrappedComponentClass()(props)
+  constructor: (args...) ->
+    @wrappedComponent = @constructor.getWrappedComponentClass()(args...)
     @wrappedComponent.wrapper = this
 
   render: ->
