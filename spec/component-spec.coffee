@@ -90,3 +90,31 @@ describe "Component", ->
         </div>
       </div>
     """
+
+  it "calls updates refs and calls lifecyle hooks appropriately", ->
+    class Owner extends Component
+      render: ->
+        @div ->
+          @div "Owner"
+          if @state.showOwnee
+            @component Ownee, name: "B", ref: 'ownee'
+
+      getInitialState: -> showOwnee: true
+
+    class Ownee extends Component
+      render: -> @div "Ownee"
+      componentWillMount: jasmine.createSpy("componentWillMount")
+      componentDidMount: jasmine.createSpy("componentDidMount")
+      componentWillUnmount: jasmine.createSpy("componentWillUnmount")
+
+    component = new Owner
+    component.element # force component to mount
+    {ownee} = component.refs
+    expect(ownee.componentWillMount).toHaveBeenCalled()
+
+    component.setState(showOwnee: false)
+    expect(component.refs.ownee).toBeUndefined()
+    expect(ownee.componentWillUnmount).toHaveBeenCalled()
+
+    component.setState(showOwnee: true)
+    expect(component.refs.ownee).toBeDefined()
