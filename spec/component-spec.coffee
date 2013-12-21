@@ -5,33 +5,49 @@ describe "Component", ->
     class Welcome extends Component
       render: ->
         @div ->
-          @span "Hello "
+          @span "Hello"
           @span @props.name
 
     component = new Welcome(name: "World")
-    expect(component.element.textContent).toBe "Hello World"
+
+    expect(component.element).toMatchMarkup """
+      <div>
+        <span>Hello</span>
+        <span>World</span>
+      </div>
+    """
 
   it "allows stateful components to be defined and rendered", ->
     class Welcome extends Component
       render: ->
         @div ->
           @span @props.greeting
-          @text " "
           @span @state.name
 
       getInitialState: ->
         name: "World"
 
     component = new Welcome(greeting: "Goodnight")
-    expect(component.element.textContent).toBe "Goodnight World"
+    expect(component.element).toMatchMarkup """
+      <div>
+        <span>Goodnight</span>
+        <span>World</span>
+      </div>
+    """
+
     component.setState(name: "Moon")
-    expect(component.element.textContent).toBe "Goodnight Moon"
+    expect(component.element).toMatchMarkup """
+      <div>
+        <span>Goodnight</span>
+        <span>Moon</span>
+      </div>
+    """
 
   it "allows owner-ownee relationships between components", ->
     class Owner extends Component
       render: ->
         @div ->
-          @div "Owner #{@props.name} "
+          @div "Owner #{@props.name}"
           @component Ownee, name: "B"
 
     class Ownee extends Component
@@ -39,4 +55,9 @@ describe "Component", ->
         @div "Ownee #{@props.name}"
 
     component = new Owner(name: "A")
-    expect(component.element.textContent).toBe "Owner A Ownee B"
+    expect(component.element).toMatchMarkup """
+      <div>
+        <div>Owner A</div>
+        <div>Ownee B</div>
+      </div>
+    """
