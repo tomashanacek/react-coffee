@@ -1,7 +1,7 @@
 Component = require '../src/component'
 
 describe "Component", ->
-  it "allows stateless components to be defined and rendered", ->
+  it "allows stateless components", ->
     class Welcome extends Component
       render: ->
         @div ->
@@ -17,7 +17,7 @@ describe "Component", ->
       </div>
     """
 
-  it "allows stateful components to be defined and rendered", ->
+  it "allows stateful components", ->
     class Welcome extends Component
       render: ->
         @div ->
@@ -43,7 +43,7 @@ describe "Component", ->
       </div>
     """
 
-  it "allows owner-ownee relationships between components", ->
+  it "allows components to own other components", ->
     class Owner extends Component
       render: ->
         @div ->
@@ -62,7 +62,7 @@ describe "Component", ->
       </div>
     """
 
-  it "allows components to be declared with children", ->
+  it "allows components have other components as children", ->
     class Owner extends Component
       render: ->
         @div ->
