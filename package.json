@@ -1,23 +1,23 @@
 {
-  "name": "text-buffer-content",
+  "name": "react-coffee",
   "version": "0.0.0",
   "description": "A container for large mutable strings with annotated regions",
-  "main": "./lib/text-buffer-content",
+  "main": "./lib/react-coffee",
   "scripts": {
     "prepublish": "grunt clean lint coffee",
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/text-buffer-content.git"
+    "url": "https://github.com/atom/react-coffee.git"
   },
   "bugs": {
-    "url": "https://github.com/atom/text-buffer-content/issues"
+    "url": "https://github.com/atom/react-coffee/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/atom/text-buffer-content/raw/master/LICENSE.md"
+      "url": "http://github.com/atom/react-coffee/raw/master/LICENSE.md"
     }
   ],
   "devDependencies": {
