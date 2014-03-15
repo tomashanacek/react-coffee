@@ -1,7 +1,7 @@
 {
   "name": "react-coffee",
   "version": "0.1.0",
-  "description": "A container for large mutable strings with annotated regions",
+  "description": "React in CoffeeScript without escaping into JSX or painfully contorting syntax.",
   "main": "./lib/react-coffee",
   "scripts": {
     "prepublish": "grunt clean lint coffee",
