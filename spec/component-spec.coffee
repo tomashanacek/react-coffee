@@ -1,4 +1,4 @@
-Component = require '../src/component'
+{Component} = require '../src/react-coffee'
 
 describe "Component", ->
   it "allows stateless components", ->
