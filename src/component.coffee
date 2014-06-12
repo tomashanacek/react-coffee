@@ -52,5 +52,5 @@ class Component
     for name of @refs
       delete @refs[name] unless @wrappedComponent.refs[name]?
 
-    for name, {wrapper} of @wrappedComponent.refs
-      @refs[name] = wrapper
+    for name, component of @wrappedComponent.refs
+      @refs[name] = if component.wrapper? then component.wrapper else component

@@ -113,7 +113,6 @@ describe "Component", ->
     expect(ownee.componentWillMount).toHaveBeenCalled()
 
     component.setState(showOwnee: false)
-    expect(component.refs.ownee).toBeUndefined()
     expect(ownee.componentWillUnmount).toHaveBeenCalled()
 
     component.setState(showOwnee: true)
