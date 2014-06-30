@@ -1,6 +1,6 @@
 {
-  "name": "react-coffee",
-  "version": "0.1.1",
+  "name": "source-react-coffee",
+  "version": "0.2.0",
   "description": "React in CoffeeScript without escaping into JSX or painfully contorting syntax.",
   "main": "./lib/react-coffee",
   "scripts": {
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/react-coffee.git"
+    "url": "https://github.com/tomashanacek/react-coffee.git"
   },
   "bugs": {
-    "url": "https://github.com/atom/react-coffee/issues"
+    "url": "https://github.com/tomashanacek/react-coffee/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/atom/react-coffee/raw/master/LICENSE.md"
+      "url": "http://github.com/tomashanacek/react-coffee/raw/master/LICENSE.md"
     }
   ],
   "devDependencies": {
