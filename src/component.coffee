@@ -37,6 +37,7 @@ class Component
     @wrappedComponent = @constructor.getWrappedComponentClass()(args...)
     @wrappedComponent.wrapper = this
     @refs = {}
+    @initialize?(args...)
 
   render: ->
     throw new Error("You must implement ::render on component #{@constructor.displayName ? @constructor.name}")
