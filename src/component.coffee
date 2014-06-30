@@ -1,13 +1,11 @@
 React = require 'react'
 Delegator = require 'delegato'
-PropertyAccessors = require 'property-accessors'
 DOMBuilder = require './dom-builder'
 ExampleReactComponent = React.createClass(render: ->).componentConstructor.prototype
 
 module.exports =
 class Component
   Delegator.includeInto(this)
-  PropertyAccessors.includeInto(this)
   DOMBuilder.includeInto(this)
 
   for key, value of ExampleReactComponent when key isnt 'constructor' and typeof value is 'function'
@@ -42,11 +40,6 @@ class Component
 
   render: ->
     throw new Error("You must implement ::render on component #{@constructor.displayName ? @constructor.name}")
-
-  @::lazyAccessor 'element', ->
-    container = document.createElement('div')
-    React.renderComponent(@wrappedComponent, container)
-    container.firstChild
 
   updateRefs: ->
     for name of @refs
